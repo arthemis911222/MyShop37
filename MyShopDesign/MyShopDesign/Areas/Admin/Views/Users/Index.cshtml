@@ -85,16 +85,21 @@
                                                     if (@item.State == 1)
                                                     {
                                                         <td>正常</td>
+                                                        <td class="center">
+                                                            <a href="/admin/users/ChangeState/@item.Id" class="btn btn-default btn-sm">冻结</a>
+                                                            <a href="/admin/users/ResetPassword/@item.Id" class="btn btn-default btn-sm">重置密码</a>
+                                                        </td>
                                                     }
-                                                    else {
+                                                    else
+                                                    {
                                                         <td>冻结中</td>
+                                                        <td class="center">
+                                                            <a href="/admin/users/ChangeState/@item.Id" class="btn btn-default btn-sm">解冻</a>
+                                                            <a href="/admin/users/ResetPassword/@item.Id" class="btn btn-default btn-sm">重置密码</a>
+                                                        </td>
                                                     }
                                                 }
                                                 
-                                                <td class="center">
-                                                    <a href="/admin/users/delete/@item.Id" class="btn btn-default btn-sm">冻结</a>
-                                                    <a href="/admin/users/ResetPassword/@item.Id" class="btn btn-default btn-sm">重置密码</a>
-                                                </td>
                                             </tr>
                                         count++;
                                     }

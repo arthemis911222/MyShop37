@@ -9,7 +9,7 @@ namespace MyShopDesign.Areas.Admin.Controllers
 {
     public class UsersController : Controller
     {
-        ShopEntities db = new ShopEntities();
+        MyShopEntities db = new MyShopEntities();
         int pageSize = 4;
         // GET: Admin/Users
         public ActionResult Index(string searchName, string orderField = "Id desc", int pageIndex = 1)
@@ -56,13 +56,24 @@ namespace MyShopDesign.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult Delete(int Id)
+        public ActionResult ChangeState(int Id)
         {
+            T_Shop_Users item = db.T_Shop_Users.Find(Id);
+            if (item.State == 1)
+                item.State = 2;
+            else
+                item.State = 1;
+            db.SaveChanges();
+
             return RedirectToAction("index");
         }
 
         public ActionResult ResetPassword(int Id)
         {
+            T_Shop_Users item = db.T_Shop_Users.Find(Id);
+            item.Password = "1234";
+            db.SaveChanges();
+
             return RedirectToAction("index");
         }
     }

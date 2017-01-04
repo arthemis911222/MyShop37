@@ -10,7 +10,7 @@ namespace MyShopDesign.Areas.Admin.Controllers
 {
     public class ProductController : Controller
     {
-        ShopEntities db = new ShopEntities();
+        MyShopEntities db = new MyShopEntities();
         int pageSize = 4;
         // GET: Admin/Product
         public ActionResult Index(string searchName, string orderField = "Id desc", int pageIndex = 1)
