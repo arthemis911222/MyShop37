@@ -83,7 +83,7 @@ namespace MyShopDesign.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(/*int id*/)
+        public ActionResult Edit(int id)
         {
             T_Shop_ProductCategory temp = db.T_Shop_ProductCategory.Find(id);
             ViewBag.item = temp;
