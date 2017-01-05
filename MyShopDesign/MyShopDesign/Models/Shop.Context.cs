@@ -25,9 +25,6 @@ namespace MyShopDesign.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<T_Shop_Basket> T_Shop_Basket { get; set; }
-        public virtual DbSet<T_Shop_OFProduct> T_Shop_OFProduct { get; set; }
-        public virtual DbSet<T_Shop_OrderForm> T_Shop_OrderForm { get; set; }
         public virtual DbSet<T_Shop_Product> T_Shop_Product { get; set; }
         public virtual DbSet<T_Shop_ProductCategory> T_Shop_ProductCategory { get; set; }
         public virtual DbSet<T_Shop_Users> T_Shop_Users { get; set; }
@@ -35,6 +32,9 @@ namespace MyShopDesign.Models
         public virtual DbSet<T_Shop_Wuliu> T_Shop_Wuliu { get; set; }
         public virtual DbSet<V_Shop_ProductPriceAsc> V_Shop_ProductPriceAsc { get; set; }
         public virtual DbSet<V_Shop_ProductPriceDesc> V_Shop_ProductPriceDesc { get; set; }
+        public virtual DbSet<T_Shop_Basket> T_Shop_Basket { get; set; }
+        public virtual DbSet<T_Shop_OFProduct> T_Shop_OFProduct { get; set; }
         public virtual DbSet<V_Shop_SuperAdin> V_Shop_SuperAdin { get; set; }
+        public virtual DbSet<T_Shop_OrderForm> T_Shop_OrderForm { get; set; }
     }
 }

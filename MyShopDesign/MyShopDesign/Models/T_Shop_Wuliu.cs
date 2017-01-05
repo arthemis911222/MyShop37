@@ -24,9 +24,10 @@ namespace MyShopDesign.Models
         public string Name { get; set; }
         public string Phone { get; set; }
         public Nullable<int> UserId { get; set; }
+        public string Address { get; set; }
     
+        public virtual T_Shop_Users T_Shop_Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Shop_OrderForm> T_Shop_OrderForm { get; set; }
-        public virtual T_Shop_Users T_Shop_Users { get; set; }
     }
 }

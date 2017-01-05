@@ -2,6 +2,15 @@
 @{
     ViewBag.Title = "订单管理";
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+
+    List<T_Shop_OrderForm> list = ViewBag.list;
+    int pageIndex = ViewBag.pageIndex;
+    int pageSize = ViewBag.pageSize;
+    int recordCount = ViewBag.recordCount;
+    int maxPage = (int)Math.Ceiling(Convert.ToDecimal(recordCount) / Convert.ToDecimal(pageSize));
+
+    string search = ViewBag.search;
+
 }
 
 <div class="col-lg-12">
@@ -27,7 +36,16 @@
                     </div>
                     <div class="col-sm-6">
                         <div id="dataTables-example_filter" class="dataTables_filter">
-                            <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
+                            <form role="form" action="/admin/orderform/index" method="post">
+                                <div class="input-group custom-search-form pull-right">
+                                    <input class="form-control" placeholder="Search..." type="text" name="searchName">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -37,10 +55,10 @@
                             <thead>
                                 <tr role="row">
                                     <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 122px;">
-                                        <a href="~/admin/category/index?orderField=Id desc">订单号</a>
+                                        <a href="~/admin/orderform/index?orderField=Id desc">订单号</a>
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
-                                        <a href="~/admin/category/index?orderField=title">收货人</a>
+                                        <a href="~/admin/orderform/index?orderField=title">收货人</a>
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">
                                         联系电话
@@ -52,31 +70,57 @@
                                         时间
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">
+                                        物流编号
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">
+                                        状态
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">
                                         操作
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @{
-                                    foreach (T_Shop_ProductCategory item in list)
+                                    foreach (T_Shop_OrderForm item in list)
                                     {
-                                        <tr class="gradeA odd" role="row">
-                                            <td class="sorting_1">@item.Id</td>
-                                            <td>@item.Name</td>
-                                            <td>@item.Description</td>
-                                            <td class="center">
-                                                <a href="/admin/category/delete/@item.Id" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">发货</a>
-                                                <a href="/admin/category/edit/@item.Id" class="btn btn-default btn-sm">删除</a>
-                                            </td>
-                                        </tr>
-                                    }
+                                            <tr class="gradeA odd" role="row">
+                                                <td class="sorting_1">@item.Id</td>
+                                                <td>@item.T_Shop_Wuliu.Name</td>
+                                                <td>@item.T_Shop_Wuliu.Phone</td>
+                                                <td>@item.Total</td>
+                                                <td>@item.Date</td>
+                                                <td>@item.FahuoId</td>
+                                                @{
+                                                    if (item.State == 1)
+                                                    {
+                                                        <td>未发货</td>
+                                                        <td class="center">
+                                                            <a class="btn btn-default btn-sm" onclick="editInfo(this,@item.Id)" data-id="@item.Id" data-wuliu="@item.FahuoId">发货</a>
+                                                            <a href="/admin/orderform/delete/@item.Id" class="btn btn-default btn-sm">取消</a>
+                                                        </td>
+                                                    }
+                                                    else if (item.State == 2)
+                                                    {
+                                                        <td>已发货</td>
+                                                        <td class="center"></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>已取消</td>
+                                                        <td class="center"></td>
+                                                    }
+                                                }
+                                            </tr>
+                                     }
                                 }
 
 
                             </tbody>
                         </table>
                     </div>
-                </div><div class="row">
+                </div>
+                <div class="row">
                     <div class="col-sm-6">
                         <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
                             Showing @((pageIndex - 1) * pageSize + 1 ) to @(pageIndex * pageSize >= recordCount ? recordCount : pageIndex * pageSize) of @(recordCount) entries
@@ -86,7 +130,7 @@
                         <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                             <ul class="pagination">
                                 <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                    <a href="/admin/category/index?pageIndex=@(pageIndex-1 <= 0 ? 1 : pageIndex-1)">Previous</a>
+                                    <a href="/admin/orderform/index?searchName=@search&&pageIndex=@(pageIndex-1 <= 0 ? 1 : pageIndex-1)">Previous</a>
                                 </li>
 
                                 @{
@@ -95,13 +139,13 @@
                                         if (pageIndex == i)
                                         {
                                             <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                                <a href="/admin/category/index?pageIndex=@i">@i</a>
+                                                <a href="/admin/orderform/index?searchName=@search&&pageIndex=@i">@i</a>
                                             </li>
                                         }
                                         else
                                         {
                                             <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
-                                                <a href="/admin/category/index?pageIndex=@i">@i</a>
+                                                <a href="/admin/orderform/index?searchName=@search&&pageIndex=@i">@i</a>
                                             </li>
                                         }
 
@@ -109,7 +153,7 @@
                                 }
 
                                 <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                    <a href="/admin/category/index?pageIndex=@(pageIndex+1 > maxPage ? maxPage : pageIndex+1)">Next</a>
+                                    <a href="/admin/orderform/index?searchName=@search&&pageIndex=@(pageIndex+1 > maxPage ? maxPage : pageIndex+1)">Next</a>
                                 </li>
                             </ul>
                         </div>
@@ -124,21 +168,44 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">物流信息</h4>
+                <h4 class="modal-title" id="myModalLabel">物流</h4>
             </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">保存</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            </div>
+            <form action="/admin/orderform/PassProduct" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>物流编号</label>
+                        <input type="hidden" id="nowid" name="id" />
+                        <input class="form-control" id="wuliu" name="WuliuId">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+@section javascrip{
+    <script>
+        function editInfo(obj) {
+
+            var id = $(obj).data("id");
+            var WuliuId = $(obj).data("wuliu");
+
+
+            //向模态框中传值
+            $('#wuliu').val(WuliuId);
+            $('#nowid').val(id);
+
+            $('#myModal').modal('show');
+        }
+    </script>
+    }
 

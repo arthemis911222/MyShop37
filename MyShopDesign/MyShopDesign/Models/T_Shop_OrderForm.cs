@@ -22,10 +22,11 @@ namespace MyShopDesign.Models
     
         public int Id { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public string State { get; set; }
+        public Nullable<int> State { get; set; }
         public Nullable<int> WuliuId { get; set; }
         public Nullable<double> Total { get; set; }
         public Nullable<int> UserId { get; set; }
+        public string FahuoId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Shop_OFProduct> T_Shop_OFProduct { get; set; }

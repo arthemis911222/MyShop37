@@ -30,10 +30,10 @@ namespace MyShopDesign.Models
         public Nullable<int> CategoryId { get; set; }
         public string Pic { get; set; }
     
+        public virtual T_Shop_ProductCategory T_Shop_ProductCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Shop_Basket> T_Shop_Basket { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Shop_OFProduct> T_Shop_OFProduct { get; set; }
-        public virtual T_Shop_ProductCategory T_Shop_ProductCategory { get; set; }
     }
 }

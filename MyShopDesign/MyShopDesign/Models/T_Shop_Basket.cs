@@ -14,6 +14,7 @@ namespace MyShopDesign.Models
     
     public partial class T_Shop_Basket
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
         public int ProductId { get; set; }
         public Nullable<int> Count { get; set; }

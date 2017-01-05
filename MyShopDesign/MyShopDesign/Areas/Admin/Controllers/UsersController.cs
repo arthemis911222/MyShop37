@@ -14,6 +14,11 @@ namespace MyShopDesign.Areas.Admin.Controllers
         // GET: Admin/Users
         public ActionResult Index(string searchName, string orderField = "Id desc", int pageIndex = 1)
         {
+            if (Session["person"] == null)
+            {
+                return Redirect("/Admin/AdminLogin/Index");
+            }
+
             IEnumerable<T_Shop_Users> query = db.T_Shop_Users;
 
             if (string.IsNullOrEmpty(searchName))
@@ -33,8 +38,8 @@ namespace MyShopDesign.Areas.Admin.Controllers
                 case "title":
                     query = query.OrderBy(m => m.Name);
                     break;
-                case "Id desc":
-                    query = query.OrderByDescending(m => m.Id);
+                case "Time desc":
+                    query = query.OrderByDescending(m => m.Time);
                     break;
                 default:
                     break;
@@ -52,6 +57,7 @@ namespace MyShopDesign.Areas.Admin.Controllers
 
             List<T_Shop_Users> list = query.ToList();
             ViewBag.list = list;
+            ViewBag.search = searchName;
 
             return View();
         }
@@ -71,7 +77,7 @@ namespace MyShopDesign.Areas.Admin.Controllers
         public ActionResult ResetPassword(int Id)
         {
             T_Shop_Users item = db.T_Shop_Users.Find(Id);
-            item.Password = "1234";
+            item.Password = "123456";
             db.SaveChanges();
 
             return RedirectToAction("index");

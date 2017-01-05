@@ -17,9 +17,9 @@ namespace MyShopDesign.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public T_Shop_Users()
         {
+            this.T_Shop_Wuliu = new HashSet<T_Shop_Wuliu>();
             this.T_Shop_Basket = new HashSet<T_Shop_Basket>();
             this.T_Shop_OrderForm = new HashSet<T_Shop_OrderForm>();
-            this.T_Shop_Wuliu = new HashSet<T_Shop_Wuliu>();
         }
     
         public int Id { get; set; }
@@ -35,10 +35,10 @@ namespace MyShopDesign.Models
         public Nullable<System.DateTime> Time { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Shop_Wuliu> T_Shop_Wuliu { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Shop_Basket> T_Shop_Basket { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Shop_OrderForm> T_Shop_OrderForm { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_Shop_Wuliu> T_Shop_Wuliu { get; set; }
     }
 }

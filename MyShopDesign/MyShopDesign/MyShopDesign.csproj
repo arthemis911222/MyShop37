@@ -198,6 +198,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminLoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderFormController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
@@ -487,6 +488,8 @@
     <Content Include="Models\Shop.edmx.diagram">
       <DependentUpon>Shop.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\AdminLogin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminLogin\Login.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cart.js" />
     <Content Include="Scripts\etao.js" />

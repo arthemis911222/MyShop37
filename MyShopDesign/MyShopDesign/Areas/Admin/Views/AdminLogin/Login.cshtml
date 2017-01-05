@@ -1,0 +1,9 @@
+﻿@using MyShopDesign.Models;
+@{
+    ViewBag.Title = "后台管理";
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    T_Shop_Workers worker =  (T_Shop_Workers)Session["person"];
+}
+
+<div class="alert alert-info">欢迎回来，@(worker.TrueName) ！</div>
+
